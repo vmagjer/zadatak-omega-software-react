@@ -75,7 +75,7 @@ export const getContracts = async (filters: {
   isActive?: boolean
 }): Promise<Array<Contract>> => {
   // TODO: Implement API call
-  await delay(1000)
+  // await delay(1000)
 
   // TODO: Implement server-side filtering, sorting, and pagination
   return mockContracts.map(transformContract).filter((contract) => {

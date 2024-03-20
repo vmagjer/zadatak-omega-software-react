@@ -41,7 +41,7 @@ export const getArticles = async (
   contractNumber: string 
 ): Promise<Array<Article>> => {
   // TODO: Implement API call 
-  await delay(1000)
+  // await delay(1000)
 
   return mockArticles.map(transformArticle)
 }
