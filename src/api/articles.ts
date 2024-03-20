@@ -1,6 +1,6 @@
 import delay from "../utils/delay"
 
-type Status = "KREIRANO" | "NARUČENO" | "ISPORUČEO"
+type Status = "KREIRANO" | "NARUČENO" | "ISPORUČENO"
 
 type APIArticle = {
   id: number
@@ -26,7 +26,7 @@ const mockArticles: Array<APIArticle> = [
     id: 3,
     naziv: "Ploča ugradbena kombinirana Gorenje GCE691BSC",
     dobavljač: "Bijela tehnika",
-    status: "ISPORUČEO",
+    status: "ISPORUČENO",
   },
 ]
 

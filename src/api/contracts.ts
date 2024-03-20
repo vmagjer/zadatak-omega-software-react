@@ -53,6 +53,15 @@ type Contract = {
   advancePaymentDate: Date
   deliveryDate: Date
   status: ContractStatus
+  actions: Record<string, Action>
+}
+
+type Action = {
+  url: string
+}
+
+function isActive(status: ContractStatus): boolean {
+  return contractActivity[status]
 }
 
 const contractActivity: Record<ContractStatus, boolean> = {
@@ -68,6 +77,7 @@ export const getContracts = async (filters: {
   // TODO: Implement API call
   await delay(1000)
 
+  // TODO: Implement server-side filtering, sorting, and pagination
   return mockContracts.map(transformContract).filter((contract) => {
     if (
       filters.customerName &&
@@ -77,7 +87,7 @@ export const getContracts = async (filters: {
     }
     if (
       filters.isActive !== undefined &&
-      contractActivity[contract.status] !== filters.isActive
+      isActive(contract.status) !== filters.isActive
     ) {
       return false
     }
@@ -86,12 +96,34 @@ export const getContracts = async (filters: {
 }
 
 function transformContract(contract: APIContract): Contract {
-  return {
+  const result: Contract = {
     id: contract.id,
     customerName: contract.kupac,
     contractNumber: contract.broj_ugovora,
     advancePaymentDate: new Date(contract.datum_akontacije),
     deliveryDate: new Date(contract.rok_isporuke),
     status: contract.status,
+    actions: {},
   }
+
+  // TODO: Actions should be given by the server
+  availableStatuses[contract.status].forEach((status) => {
+    result.actions[`changeStatusTo${status}`] = {
+      url: `/contracts/${contract.id}/status/${status}`,
+    }
+  })
+
+  if (isActive(contract.status)) {
+    result.actions["changeDeliveryDate"] = {
+      url: `/contracts/${contract.id}/delivery-date`,
+    }
+  }
+
+  return result
+}
+
+const availableStatuses: Record<ContractStatus, Array<ContractStatus>> = {
+  KREIRANO: ["NARUČENO"],
+  NARUČENO: ["ISPORUČENO"],
+  ISPORUČENO: [],
 }
