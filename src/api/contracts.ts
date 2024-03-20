@@ -1,6 +1,6 @@
 import delay from "../utils/delay"
 
-type ContractStatus = "KREIRANO" | "NARUČENO" | "ISPORUČENO"
+export type ContractStatus = "KREIRANO" | "NARUČENO" | "ISPORUČENO"
 
 type APIContract = {
   id: number
@@ -46,7 +46,7 @@ const mockContracts: Array<APIContract> = [
   },
 ]
 
-type Contract = {
+export type Contract = {
   id: number
   customerName: string
   contractNumber: string
@@ -86,7 +86,7 @@ export const getContracts = async (filters: {
       return false
     }
     if (
-      filters.isActive !== undefined &&
+      filters.isActive &&
       isActive(contract.status) !== filters.isActive
     ) {
       return false
