@@ -38,18 +38,19 @@ function App() {
       <div className="container">
         <h1>Ugovori</h1>
         <div className="meta-interactives">
-          <div>
+          <div className="left">
             <input
+              className="search-input"
               type="text"
-              placeholder="Pretraži ugovore"
+              placeholder="Pretraži po kupcu"
               onChange={handleSearch}
             />
-            <label htmlFor="active">
-              <input type="checkbox" checked={active} onChange={handleActive} />
+            <label htmlFor="active" className="checkbox-input">
+              <input type="checkbox" id="active" checked={active} onChange={handleActive} />
               Prikazuj samo aktivne ugovore
             </label>
           </div>
-          <button>Dodaj ugovor</button>
+          <button className="button">Dodaj ugovor</button>
         </div>
         <div className="table-container">
           <table>
@@ -65,6 +66,7 @@ function App() {
               {contracts.map((contract) => (
                 <tr key={contract.id}>
                   <td>{contract.contractNumber}</td>
+                  {/* TODO: Highlight search strings */}
                   <td>{contract.customerName}</td>
                   <td>{contract.deliveryDate.toLocaleDateString()}</td>
                   <td>

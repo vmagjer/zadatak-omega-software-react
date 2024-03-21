@@ -1,4 +1,4 @@
-import delay from "../utils/delay"
+// import delay from "../utils/delay"
 
 export type ContractStatus = "KREIRANO" | "NARUČENO" | "ISPORUČENO"
 
@@ -81,14 +81,13 @@ export const getContracts = async (filters: {
   return mockContracts.map(transformContract).filter((contract) => {
     if (
       filters.customerName &&
-      !contract.customerName.includes(filters.customerName)
+      !contract.customerName
+        .toLocaleLowerCase()
+        .includes(filters.customerName.toLocaleLowerCase())
     ) {
       return false
     }
-    if (
-      filters.isActive &&
-      isActive(contract.status) !== filters.isActive
-    ) {
+    if (filters.isActive && isActive(contract.status) !== filters.isActive) {
       return false
     }
     return true
