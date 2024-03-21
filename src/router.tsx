@@ -1,11 +1,15 @@
 import { createBrowserRouter } from "react-router-dom"
-import App from "./App"
+import Contracts from "./pages/Contracts"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Contracts />,
   },
+  {
+    path: "/contracts/:id",
+    element: <div>Contract details</div>,
+  }
 ])
 
 export default router

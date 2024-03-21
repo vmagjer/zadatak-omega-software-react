@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import "./App.css"
-import { Contract, ContractStatus, getContracts } from "./api/contracts"
+import "./Contracts.css"
+import { Contract, ContractStatus, getContracts } from "../api/contracts"
 
 const statusMap: Record<ContractStatus, string> = {
   KREIRANO: 'created',
@@ -8,7 +8,7 @@ const statusMap: Record<ContractStatus, string> = {
   ISPORUČENO: 'delivered',
 }
 
-function App() {
+function ContractsView() {
   const [contracts, setContracts] = useState<Array<Contract>>([])
 
   const [search, setSearch] = useState<string>("")
@@ -86,4 +86,4 @@ function App() {
   )
 }
 
-export default App
+export default ContractsView
