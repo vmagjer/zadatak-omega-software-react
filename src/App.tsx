@@ -8,7 +8,6 @@ const statusMap: Record<ContractStatus, string> = {
   ISPORUČENO: 'delivered',
 }
 
-
 function App() {
   const [contracts, setContracts] = useState<Array<Contract>>([])
 
@@ -23,6 +22,7 @@ function App() {
   }
 
   useEffect(() => {
+    // TODO: implement debouncing and loading state, probably using a reducer
     const fetchData = async () => {
       const response = await getContracts({
         customerName: search,
@@ -32,6 +32,10 @@ function App() {
     }
     fetchData()
   }, [search, active])
+
+  const handleAddContract = () => {
+    throw new Error("Not implemented")
+  }
 
   return (
     <div className="App">
@@ -50,7 +54,7 @@ function App() {
               Prikazuj samo aktivne ugovore
             </label>
           </div>
-          <button className="button">Dodaj ugovor</button>
+          <button className="button" onClick={handleAddContract}>Dodaj ugovor</button>
         </div>
         <div className="table-container">
           <table>
