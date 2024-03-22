@@ -1,11 +1,14 @@
 .property {
     display: grid;
     gap: 10px;
-    grid-template-columns: 2fr 8fr;
+    grid-template-columns: 3fr 9fr;
+
+    padding: 4px 0;
+    border-bottom: 1px solid #ccc;
 
     .label {
         font-weight: bold;
-        text-align: end;
+        text-align: start;
         
     }
     .property {
