@@ -85,6 +85,7 @@ function ContractsView() {
               {contracts.map((contract) => (
                 <tr
                   key={contract.id}
+                  className="clickable-row"
                   onClick={() => handleContractDetails(contract.id)}
                 >
                   <td>{contract.contractNumber}</td>
