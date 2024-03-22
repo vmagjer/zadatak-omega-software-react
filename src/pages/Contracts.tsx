@@ -108,6 +108,7 @@ function ContractsView() {
                   <td>{contract.contractNumber}</td>
                   {/* TODO: Highlight search strings */}
                   <td>{contract.customerName}</td>
+                  {/* TODO: explore UX of date-derived values like days until date x */}
                   <td>{contract.deliveryDate.toLocaleDateString()}</td>
                   <td>
                     <StatusTag value={statusMap[contract.status]}>

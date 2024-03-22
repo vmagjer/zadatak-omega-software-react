@@ -11,12 +11,12 @@
   
     &.status-tag-created {
       background-color: rgb(44, 209, 44);
-      color: rgb(15, 58, 15);
+      color: rgb(14, 47, 14);
     }
   
     &.status-tag-ordered {
       background-color: rgb(218, 214, 30);
-      color: rgb(51, 50, 14);
+      color: rgb(37, 36, 12);
     }
   
     &.status-tag-delivered {
