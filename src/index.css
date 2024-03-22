@@ -61,3 +61,14 @@ body {
     background-color: rgb(33, 24, 117);
   }
 }
+
+.button.button-secondary {
+  border-color:  rgb(150, 28, 28);
+  background-color: #fcfcfc;
+  color: rgb(150, 28, 28);
+
+  &:hover,
+  &:focus {
+    background-color: rgb(231, 205, 205);
+  }
+}

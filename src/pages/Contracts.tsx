@@ -50,15 +50,22 @@ function ContractsView() {
     <Layout>
       <div className="App">
         <div className="header">
-          <Breadcrumbs crumbs={[{ name: "Ugovori" }]} />
+          <div className="container">
+            <Breadcrumbs crumbs={[{ name: "Ugovori" }]} />
 
-          <button className="button button-primary" onClick={handleAddContract}>
-            Dodaj ugovor
-          </button>
+            <button
+              className="button button-primary"
+              onClick={handleAddContract}
+            >
+              Dodaj ugovor
+            </button>
+          </div>
         </div>
 
         <div className="content">
-          <div className="meta-interactives">
+          <div className="container meta-interactives">
+            {/* when implementing additional filters, i recommend hiding them in a 'Filters' menu, 
+            BUT consider common use cases before requiring more clicks from the user */}
             <div className="left">
               <input
                 className="search-input"
@@ -67,6 +74,7 @@ function ContractsView() {
                 onChange={handleSearch}
               />
               <label htmlFor="active" className="checkbox-input">
+                {/* TODO: be transparent about what are 'active' contracts  */}
                 <input
                   type="checkbox"
                   id="active"
@@ -78,7 +86,7 @@ function ContractsView() {
             </div>
           </div>
 
-          <div className="table-container">
+          <div className="container table-container">
             <CMSTable
               headers={["Broj ugovora", "Kupac", "Rok isporuke", "Status"]}
             >
