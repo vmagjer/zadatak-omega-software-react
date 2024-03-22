@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 import "./Contracts.css"
-import { Contract, ContractStatus, getContracts } from "../api/contracts"
+import {
+  Contract,
+  ContractStatus,
+  contractActivity,
+  getContracts,
+} from "../api/contracts"
 import { useNavigate } from "react-router-dom"
 import Layout from "../components/Layout"
 import CMSTable from "../components/CMSTable"
@@ -81,7 +86,11 @@ function ContractsView() {
                   checked={active}
                   onChange={handleActive}
                 />
-                Prikazuj samo aktivne ugovore
+                {`Prikazuj samo aktivne ugovore (${
+                  contracts.filter(
+                    (contract) => contractActivity[contract.status]
+                  ).length
+                })`}
               </label>
             </div>
           </div>

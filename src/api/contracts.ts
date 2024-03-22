@@ -64,7 +64,7 @@ function isActive(status: ContractStatus): boolean {
   return contractActivity[status]
 }
 
-const contractActivity: Record<ContractStatus, boolean> = {
+export const contractActivity: Record<ContractStatus, boolean> = {
   KREIRANO: true,
   NARUČENO: true,
   ISPORUČENO: false,
