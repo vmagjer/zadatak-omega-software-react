@@ -74,9 +74,10 @@ function ContractDetailsView() {
                 {contract?.status.toLocaleLowerCase()}
               </StatusTag>
             </DetailsProperty>
+            <DetailsProperty label="Artikli">
+              <CMSTable headers={["Naziv artikla", "Dobavljac", "Status"]}>
               {articles.map((article) => (
                 <tr key={article.id}>
-                  <td>{article.id}</td>
                   <td>{article.name}</td>
                   <td>{article.supplier}</td>
                   <td>
@@ -87,7 +88,7 @@ function ContractDetailsView() {
                 </tr>
               ))}
             </CMSTable>
-          </div>
+            </DetailsProperty>
         </div>
       </div>
     </Layout>
