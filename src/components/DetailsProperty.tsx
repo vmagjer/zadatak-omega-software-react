@@ -2,14 +2,14 @@ import './DetailsProperty.css'
 
 const DetailsProperty = ({
   label,
-  value,
+  children,
 }: {
   label: string
-  value: string
+  children: React.ReactNode
 }) => (
   <div className="property">
     <div className="label">{label}</div>
-    <div className="value">{value}</div>
+    <div className="value">{children}</div>
   </div>
 )
 

@@ -1,17 +1,21 @@
 .property {
     display: grid;
-    gap: 10px;
-    grid-template-columns: 3fr 9fr;
+    gap: 1.5rem;
+    grid-template-columns: 2fr 10fr;
 
     padding: 4px 0;
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
+
+    &:last-child {
+        border-bottom: none;
+    }
 
     .label {
         font-weight: bold;
-        text-align: start;
+        text-align: end;
         
     }
-    .property {
+    .value {
 
     }
 }

@@ -57,17 +57,23 @@ function ContractDetailsView() {
         </div>
 
         <div className="content">
-          <div className="section master">
-            <DetailsProperty label="Broj ugovora" value={contract?.contractNumber || "N/A"} />
-            <DetailsProperty label="Kupac" value={contract?.customerName || "N/A"} />
-            <DetailsProperty label="Datum akontacije" value={contract?.advancePaymentDate.toLocaleDateString() || "N/A"} />
-            <DetailsProperty label="Rok isporuke" value={contract?.deliveryDate.toLocaleDateString() || "N/A"} />
-            <DetailsProperty label="Status" value={contract?.status.toLocaleLowerCase() || "N/A"} />
-          </div>
-
-          <div className="section table-container">
-            <h2 className="text-large">Artikli</h2>
-            <CMSTable headers={["ID", "Naziv artikla", "Dobavljac", "Status"]}>
+            <DetailsProperty label="Broj ugovora">
+              {contract?.contractNumber || "N/A"}
+            </DetailsProperty>
+            <DetailsProperty label="Kupac">
+              {contract?.customerName || "N/A"}
+            </DetailsProperty>
+            <DetailsProperty label="Datum akontacije">
+              {contract?.advancePaymentDate.toLocaleDateString() || "N/A"}
+            </DetailsProperty>
+            <DetailsProperty label="Rok isporuke">
+              {contract?.deliveryDate.toLocaleDateString() || "N/A"}
+            </DetailsProperty>
+            <DetailsProperty label="Status">
+              <StatusTag value={statusMap[contract?.status || "KREIRANO"]}>
+                {contract?.status.toLocaleLowerCase()}
+              </StatusTag>
+            </DetailsProperty>
               {articles.map((article) => (
                 <tr key={article.id}>
                   <td>{article.id}</td>
