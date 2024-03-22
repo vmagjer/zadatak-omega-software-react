@@ -38,6 +38,7 @@ function ContractsView() {
   }
 
   return (
+    <Layout>
     <div className="App">
       <div className="container">
         <h1>Ugovori</h1>
@@ -82,7 +83,7 @@ function ContractsView() {
           </table>
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 
