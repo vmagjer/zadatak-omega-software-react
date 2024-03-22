@@ -106,9 +106,46 @@ export async function getContract(id: number): Promise<Contract> {
   return transformContract(contract)
 }
 
+export async function updateContract(
+  contract: Partial<Contract>
+): Promise<void> {
+  // TODO: Implement API call
+  // await delay(1000)
 
+  const index = mockContracts.findIndex((c) => c.id === contract.id)
+  if (index === -1) {
+    throw new Error("Contract not found")
+  }
 
-// TODO: decouple the API and the UI contract status
+  mockContracts[index] = {
+    ...mockContracts[index],
+    ...contract,
+  }
+}
+
+export async function createContract(
+  contract: Omit<Contract, "id" | "status" | 'actions'>
+): Promise<void> {
+  // TODO: Implement API call
+  // await delay(1000)
+
+  const id = mockContracts.length + 1
+  console.log(contract);
+  console.log(contract.advancePaymentDate.getFullYear() );
+  
+
+  const advancePaymentDate = `${contract.advancePaymentDate.getFullYear()}-${contract.advancePaymentDate.getMonth()}-${contract.advancePaymentDate.getDate()}`
+  const deliveryDate = `${contract.deliveryDate.getFullYear()}-${contract.deliveryDate.getMonth()}-${contract.deliveryDate.getDate()}`
+  mockContracts.push({
+    id,
+    kupac: contract.customerName,
+    broj_ugovora: contract.contractNumber,
+    datum_akontacije: advancePaymentDate,
+    rok_isporuke: deliveryDate,
+    status: "KREIRANO",
+  })
+}
+
 function transformContract(contract: APIContract): Contract {
   const result: Contract = {
     id: contract.id,
@@ -136,8 +173,11 @@ function transformContract(contract: APIContract): Contract {
   return result
 }
 
-const availableStatuses: Record<ContractStatus, Array<ContractStatus>> = {
-  KREIRANO: ["NARUČENO"],
-  NARUČENO: ["ISPORUČENO"],
-  ISPORUČENO: [],
+export const availableStatuses: Record<
+  ContractStatus,
+  Array<ContractStatus>
+> = {
+  KREIRANO: ["KREIRANO", "NARUČENO"],
+  NARUČENO: ["NARUČENO", "ISPORUČENO"],
+  ISPORUČENO: ["ISPORUČENO"],
 }

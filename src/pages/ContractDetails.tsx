@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import "./ContractDetails.css"
 import { Contract, ContractStatus, getContract } from "../api/contracts"
 import { Article, getArticles } from "../api/articles"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import DetailsProperty from "../components/DetailsProperty"
 import CMSTable from "../components/CMSTable"
 import StatusTag, { Status } from "../components/StatusTag"
 import Layout from "../components/Layout"
 import Breadcrumbs from "../components/Breadcrumbs"
 
-const statusMap: Record<ContractStatus, Status> = {
+export const statusMap: Record<ContractStatus, Status> = {
   KREIRANO: "created",
   NARUČENO: "ordered",
   ISPORUČENO: "delivered",
@@ -34,8 +34,9 @@ function ContractDetailsView() {
     fetchData()
   }, [id])
 
+  const navigate = useNavigate()
   const handleEditContract = () => {
-    throw new Error("Not implemented")
+    navigate(`/contracts/${id}/edit`)
   }
 
   const handleDeleteContract = () => {
