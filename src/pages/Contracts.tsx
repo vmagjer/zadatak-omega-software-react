@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import Layout from "../components/Layout"
 import CMSTable from "../components/CMSTable"
 import StatusTag, { Status } from "../components/StatusTag"
+import Breadcrumbs from "../components/Breadcrumbs"
 
 const statusMap: Record<ContractStatus, Status> = {
   KREIRANO: "created",
@@ -49,9 +50,7 @@ function ContractsView() {
     <Layout>
       <div className="App">
         <div className="header">
-          <div className="breadcrumbs">
-            <span>Ugovori</span>
-          </div>
+          <Breadcrumbs crumbs={[{ name: "Ugovori" }]} />
 
           <button className="button button-primary" onClick={handleAddContract}>
             Dodaj ugovor

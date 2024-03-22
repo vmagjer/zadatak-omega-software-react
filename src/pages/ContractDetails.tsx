@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import "./ContractDetails.css"
-import { ContractStatus } from "../api/contracts"
+import { Contract, ContractStatus, getContract } from "../api/contracts"
 import { Article, getArticles } from "../api/articles"
 import { useParams } from "react-router-dom"
 import DetailsProperty from "../components/DetailsProperty"
 import CMSTable from "../components/CMSTable"
 import StatusTag, { Status } from "../components/StatusTag"
 import Layout from "../components/Layout"
+import Breadcrumbs from "../components/Breadcrumbs"
 
 const statusMap: Record<ContractStatus, Status> = {
   KREIRANO: "created",
@@ -16,13 +17,17 @@ const statusMap: Record<ContractStatus, Status> = {
 
 function ContractDetailsView() {
   const [articles, setArticles] = useState<Article[]>([])
+  const [contract, setContract] = useState<Contract | null>(null)
 
   const { id } = useParams<{ id: string }>()
 
   useEffect(() => {
     if (!id) return
-    // TODO: implement debouncing and loading state, probably using a reducer
+    
+    // TODO: implement loading state, probably using a reducer
     const fetchData = async () => {
+      const details = await getContract(parseInt(id))
+      setContract(details)
       const response = await getArticles(id)
       setArticles(response)
     }
@@ -38,11 +43,12 @@ function ContractDetailsView() {
       <div className="contract-details">
         <div className="header">
           <div className="left">
-            <div className="breadcrumbs">
-              <a href="/">Ugovori</a>
-              <span> / </span>
-              <span> {id} </span>
-            </div>
+            <Breadcrumbs
+              crumbs={[
+                { name: "Ugovori", path: "/" },
+                { name: id || "N/A"},
+              ]}
+            />
           </div>
 
           <button className="button button-primary" onClick={handleEditContract}>
@@ -51,12 +57,12 @@ function ContractDetailsView() {
         </div>
 
         <div className="content">
-          <div className=" section master">
-            <DetailsProperty label="Broj ugovora" value="123456" />
-            <DetailsProperty label="Kupac" value="Kupac d.o.o." />
-            <DetailsProperty label="Datum akontacije" value="01.01.2021" />
-            <DetailsProperty label="Rok isporuke" value="01.01.2022" />
-            <DetailsProperty label="Status" value="KREIRANO" />
+          <div className="section master">
+            <DetailsProperty label="Broj ugovora" value={contract?.contractNumber || "N/A"} />
+            <DetailsProperty label="Kupac" value={contract?.customerName || "N/A"} />
+            <DetailsProperty label="Datum akontacije" value={contract?.advancePaymentDate.toLocaleDateString() || "N/A"} />
+            <DetailsProperty label="Rok isporuke" value={contract?.deliveryDate.toLocaleDateString() || "N/A"} />
+            <DetailsProperty label="Status" value={contract?.status.toLocaleLowerCase() || "N/A"} />
           </div>
 
           <div className="section table-container">
