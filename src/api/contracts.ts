@@ -94,6 +94,21 @@ export const getContracts = async (filters: {
   })
 }
 
+export async function getContract(id: number): Promise<Contract> {
+  // TODO: Implement API call
+  // await delay(1000)
+
+  const contract = mockContracts.find((contract) => contract.id === id)
+  if (!contract) {
+    throw new Error("Contract not found")
+  }
+
+  return transformContract(contract)
+}
+
+
+
+// TODO: decouple the API and the UI contract status
 function transformContract(contract: APIContract): Contract {
   const result: Contract = {
     id: contract.id,
