@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react"
 import "./Contracts.css"
 import { Contract, ContractStatus, getContracts } from "../api/contracts"
+import { useNavigate } from "react-router-dom"
+import Layout from "../components/Layout"
+import CMSTable from "../components/CMSTable"
+import StatusTag, { Status } from "../components/StatusTag"
 
-const statusMap: Record<ContractStatus, string> = {
-  KREIRANO: 'created',
-  NARUČENO: 'ordered',
-  ISPORUČENO: 'delivered',
+const statusMap: Record<ContractStatus, Status> = {
+  KREIRANO: "created",
+  NARUČENO: "ordered",
+  ISPORUČENO: "delivered",
 }
 
 function ContractsView() {
@@ -33,54 +37,70 @@ function ContractsView() {
     fetchData()
   }, [search, active])
 
+  const navigate = useNavigate()
   const handleAddContract = () => {
-    throw new Error("Not implemented")
+    navigate("/contracts/new")
+  }
+  const handleContractDetails = (id: number) => {
+    navigate(`/contracts/${id}`)
   }
 
   return (
     <Layout>
-    <div className="App">
-      <div className="container">
-        <h1>Ugovori</h1>
-        <div className="meta-interactives">
-          <div className="left">
-            <input
-              className="search-input"
-              type="text"
-              placeholder="Pretraži po kupcu"
-              onChange={handleSearch}
-            />
-            <label htmlFor="active" className="checkbox-input">
-              <input type="checkbox" id="active" checked={active} onChange={handleActive} />
-              Prikazuj samo aktivne ugovore
-            </label>
+      <div className="App">
+        <div className="header">
+          <div className="breadcrumbs">
+            <span>Ugovori</span>
           </div>
-          <button className="button" onClick={handleAddContract}>Dodaj ugovor</button>
+
+          <button className="button button-primary" onClick={handleAddContract}>
+            Dodaj ugovor
+          </button>
         </div>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Broj ugovora</th>
-                <th>Kupac</th>
-                <th>Rok isporuke</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
+
+        <div className="content">
+          <div className="meta-interactives">
+            <div className="left">
+              <input
+                className="search-input"
+                type="text"
+                placeholder="Pretraži po kupcu"
+                onChange={handleSearch}
+              />
+              <label htmlFor="active" className="checkbox-input">
+                <input
+                  type="checkbox"
+                  id="active"
+                  checked={active}
+                  onChange={handleActive}
+                />
+                Prikazuj samo aktivne ugovore
+              </label>
+            </div>
+          </div>
+
+          <div className="table-container">
+            <CMSTable
+              headers={["Broj ugovora", "Kupac", "Rok isporuke", "Status"]}
+            >
               {contracts.map((contract) => (
-                <tr key={contract.id}>
+                <tr
+                  key={contract.id}
+                  onClick={() => handleContractDetails(contract.id)}
+                >
                   <td>{contract.contractNumber}</td>
                   {/* TODO: Highlight search strings */}
                   <td>{contract.customerName}</td>
                   <td>{contract.deliveryDate.toLocaleDateString()}</td>
                   <td>
-                    <div className="status-tag" data-status={statusMap[contract.status]}>{contract.status.toLocaleLowerCase()}</div>
+                    <StatusTag value={statusMap[contract.status]}>
+                      {contract.status.toLocaleLowerCase()}
+                    </StatusTag>
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
+            </CMSTable>
+          </div>
         </div>
       </div>
     </Layout>

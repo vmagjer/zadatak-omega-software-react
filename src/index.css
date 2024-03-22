@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: light;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,7 +16,48 @@
   padding: 0;
 }
 
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+}
+
 body {
   background-color: rgba(0 0 0 / 10%);
 }
 
+.text-bold {
+  font-weight: bold;
+}
+
+.text-large {
+  font-size: 1.25rem;
+}
+
+
+.button {
+  border-radius: 0.25rem;
+  border: 1px solid rgb(126, 126, 126);
+  background-color: rgb(126, 126, 126);
+  color: white;
+
+  height: 48px;
+  padding: 0.5rem 1rem;
+  font-size: medium;
+
+  &:hover,
+  &:focus {
+    background-color: rgb(99, 99, 99);
+    cursor: pointer;
+  }
+}
+
+.button.button-primary {
+  border-color:  rgb(40, 28, 150);
+  background-color: rgb(40, 28, 150);
+  color: white;
+
+  &:hover,
+  &:focus {
+    background-color: rgb(33, 24, 117);
+  }
+}

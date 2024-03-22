@@ -30,7 +30,7 @@ const mockArticles: Array<APIArticle> = [
   },
 ]
 
-type Article = {
+export type Article = {
   id: number
   name: string
   supplier: string

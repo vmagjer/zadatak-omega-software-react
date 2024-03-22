@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom"
 import Contracts from "./pages/Contracts"
+import ContractDetailsView from "./pages/ContractDetails"
 
 const router = createBrowserRouter([
   {
@@ -8,7 +9,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/contracts/:id",
-    element: <div>Contract details</div>,
+    element: <ContractDetailsView />,
   }
 ])
 
